@@ -1,0 +1,23 @@
+<window id="win" title="Companies list" width="640px" border="normal"
+        apply="org.zkoss.bind.BindComposer"
+        viewModel="@id('vm') @init('ru.hoteladvisors.view.CompanyViewModel')">
+    <listbox
+            id="box"
+            multiple="true"
+            rows="5"
+            model="@bind(vm.companies)">
+        <listhead>
+            <listheader label="Id" sort="auto(id)"/>
+            <listheader label="Name" width="80px"
+                        sort="auto(name)"/>
+            <listheader label="Legal Form" width="170px" sort="auto(legalForm)"/>
+        </listhead>
+        <template name="model" var="company">
+            <listitem value="@load(company)">
+                <listcell label="@load(company.id)"/>
+                <listcell label="@load(event.name)"/>
+                <listcell label="@load(event.legalForm)"/>
+            </listitem>
+        </template>
+    </listbox>
+</window>

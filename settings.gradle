@@ -1,0 +1,4 @@
+rootProject.name = 'hoteladvisors'
+include 'web-app'
+include 'domain'
+

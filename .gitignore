@@ -1,0 +1,5 @@
+.gradle
+.idea
+build/
+docker/mysql_data/
+docker/wildfly_data/

@@ -1,0 +1,52 @@
+plugins {
+    id 'java'
+    id 'org.liquibase.gradle' version '2.2.0'
+
+}
+
+group 'ru.hoteladvisors'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 11
+targetCompatibility = 11
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("jakarta.platform:jakarta.jakartaee-api:10.0.0")
+    implementation("org.apache.logging.log4j:log4j-jakarta-web:2.20.0")
+
+    runtimeOnly("org.hibernate:hibernate-search-orm:5.10.11.Final")
+    runtimeOnly("org.hibernate:hibernate-core-jakarta:5.6.15.Final")
+
+    implementation("com.github.javafaker:javafaker:1.0.2")
+    implementation("mysql:mysql-connector-java:8.0.32")
+
+    liquibaseRuntime("info.picocli:picocli:4.7.1")
+    liquibaseRuntime("org.liquibase:liquibase-core:4.20.0")
+    liquibaseRuntime("javax.xml.bind:jaxb-api:2.3.1")
+    liquibaseRuntime("mysql:mysql-connector-java:8.0.32")
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
+}
+
+test {
+    useJUnitPlatform()
+}
+
+
+liquibase {
+    activities {
+        main {
+            changelogFile 'src/main/db/changelog.xml'
+            url project.property("mysql.url")
+            username project.property("mysql.user")
+            password project.property("mysql.password")
+            logLevel "info"
+        }
+    }
+}

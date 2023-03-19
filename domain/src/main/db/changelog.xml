@@ -1,0 +1,85 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="efimmatytsin (generated)" id="1679167729178-1">
+        <createTable tableName="address">
+            <column name="postal_code" type="TEXT"/>
+            <column name="city" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="street" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="apt" type="TEXT"/>
+            <column name="building" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="efimmatytsin (generated)" id="1679167729178-2">
+        <createTable tableName="branch">
+            <column name="name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="efimmatytsin (generated)" id="1679167729178-3">
+        <createTable tableName="company">
+            <column name="name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="legal_form" type="TEXT"/>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="address_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="efimmatytsin (generated)" id="1679167729178-4">
+        <createTable tableName="company_branch">
+            <column name="company_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="branch_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="efimmatytsin (generated)" id="1679167729178-5">
+        <createIndex indexName="branch_address_id_fk" tableName="branch">
+            <column name="address_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="efimmatytsin (generated)" id="1679167729178-6">
+        <createIndex indexName="company_address_id_fk" tableName="company">
+            <column name="address_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="efimmatytsin (generated)" id="1679167729178-7">
+        <createIndex indexName="company_branch_branch_id_fk" tableName="company_branch">
+            <column name="branch_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="efimmatytsin (generated)" id="1679167729178-8">
+        <addForeignKeyConstraint baseColumnNames="address_id" baseTableName="branch" constraintName="branch_address_id_fk" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="address" validate="true"/>
+    </changeSet>
+    <changeSet author="efimmatytsin (generated)" id="1679167729178-9">
+        <addForeignKeyConstraint baseColumnNames="address_id" baseTableName="company" constraintName="company_address_id_fk" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="address" validate="true"/>
+    </changeSet>
+    <changeSet author="efimmatytsin (generated)" id="1679167729178-10">
+        <addForeignKeyConstraint baseColumnNames="branch_id" baseTableName="company_branch" constraintName="company_branch_branch_id_fk" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="branch" validate="true"/>
+    </changeSet>
+    <changeSet author="efimmatytsin (generated)" id="1679167729178-11">
+        <addForeignKeyConstraint baseColumnNames="company_id" baseTableName="company_branch" constraintName="company_branch_company_id_fk" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="company" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
